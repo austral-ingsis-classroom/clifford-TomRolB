@@ -1,0 +1,71 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface FileSystem {
+    + getWorkingDirectory(): Directory
+}
+
+class CursorFileSystem implements FileSystem {
+    - root: Directory
+    - workingDir: Directory
+    + getWorkingDirectory(): Directory
+}
+
+interface Visitor {
+    + visit(file: File)
+    + visit(dir: Directory)
+}
+
+interface Visitable {
+    + accept(visitor: Visitor)
+}
+
+interface FileObject extends Visitable {
+    + accept(visitor: Visitor)
+    + getName(): String
+    + rename(name: String)
+}
+
+class Directory implements FileObject {
+    - name: String
+    - children: Map<String, FileObject>
+    + getName(): String
+    + rename(name: String)
+    + addChild(name: String, children: FileObject)
+    + removeChild(name: String)
+    + getChildren()
+}
+
+class File implements FileObject {
+    - name: String
+    - content: String
+    + getName(): String
+    + rename(name: String)
+    + getContent: String
+}
+
+interface Action {
+    + execute(): String
+}
+
+'Should execute() return a String?
+'Should the commands have the result stored to an attribute?
+'Should the commands have listeners?
+class MakeDirectory implements Action {
+    + execute(): String
+}
+class Touch implements Action {
+    + execute(): String
+}
+class ListChildren implements Action {
+    + execute(): String
+}
+class Remove implements Action {
+    + execute(): String
+}
+
+FileSystem -> Directory
+Action -> FileSystem
+Visitable -> Visitor
+
+@enduml
