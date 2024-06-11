@@ -5,7 +5,7 @@ import java.util.List;
 
 //TODO: May rename
 public class CursorFileSystem implements FileSystem {
-    private final Directory rootDirectory = new Directory("root");
+    private final Directory rootDirectory = new Directory("/");
     private List<Directory> dirPath = new ArrayList<>(List.of(rootDirectory));
     private final PathResolver pathResolver = new PathResolver(rootDirectory);
 
@@ -18,7 +18,8 @@ public class CursorFileSystem implements FileSystem {
     public String getCurrentPath() {
         return dirPath
                 .stream()
-                .map(Object::toString)
+                .skip(1)
+                .map(FileObject::getName)
                 .reduce("", (String acc, String current) -> acc + "/" + current);
     }
 
@@ -28,12 +29,8 @@ public class CursorFileSystem implements FileSystem {
 
         if (result instanceof SuccessfulCd) {
             dirPath = ((SuccessfulCd) result).dirPath();
-            return "Successfully changed to directory";
+            return "moved to directory '" + dirPath.getLast().getName() + "'";
         }
         else return ((CdFailure) result).reason();
-    }
-
-    private Directory getRootDirectory() {
-        return dirPath.getFirst();
     }
 }

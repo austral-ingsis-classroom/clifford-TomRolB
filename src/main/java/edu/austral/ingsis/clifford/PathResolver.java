@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PathResolver implements Visitor {
-
     private final Directory root;
     private CdResult result;
     private List<Directory> pathBeingBuilt;
@@ -24,20 +23,21 @@ public class PathResolver implements Visitor {
     public void visit(Directory dir) {
         if (level == splitPath.length) {
             result = new SuccessfulCd(pathBeingBuilt);
+            return;
         }
 
         FileObject child = dir.getChild(splitPath[level]);
         if (child == null) {
-            result = new CdFailure("Invalid path: " + dir.getName() + "does not have a child " + splitPath[level]);
+            result = new CdFailure("'" + splitPath[level] + "' directory does not exist");
         }
         // TODO: should not actually cast
-        else if (!(child instanceof Directory)) {
+        else if (!(child instanceof Directory childDir)) {
             result = new CdFailure("Invalid path: " + splitPath[level] + "is not a directory");
         }
         else {
-            pathBeingBuilt.add(dir);
+            pathBeingBuilt.add(childDir);
             level++;
-            visit((Directory) child);
+            visit(childDir);
         }
     }
 
@@ -51,14 +51,14 @@ public class PathResolver implements Visitor {
             case "..":
                 //TODO: corner case - reaching root
                 ArrayList<Directory> newDirPath = new ArrayList<>(dirPath);
-                newDirPath.removeLast();
+                if (newDirPath.size() > 1) newDirPath.removeLast();
                 return new SuccessfulCd(newDirPath);
         }
 
         level = 0;
         result = null;
         splitPath = path.split("/");
-        pathBeingBuilt = new ArrayList<>();
+        pathBeingBuilt = new ArrayList<>(List.of(root));
 
         if (pathStartsAtRoot(path)) visit(root);
         else visit(dirPath.getLast());

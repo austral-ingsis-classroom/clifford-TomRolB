@@ -1,12 +1,10 @@
 package edu.austral.ingsis.clifford;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Directory implements FileObject {
     private String name;
-    private final Map<String, FileObject> children = new HashMap<String, FileObject>();
+    private final SequencedMap<String, FileObject> children = new LinkedHashMap<>();
 
     public Directory(String name) {
         this.name = name;
