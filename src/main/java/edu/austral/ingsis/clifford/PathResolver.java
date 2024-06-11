@@ -43,7 +43,9 @@ public class PathResolver implements Visitor {
 
     public CdResult getDirectory(List<Directory> dirPath, String path) {
         switch (path) {
-            case "":  return new CdFailure("You must pass a non-empty route");
+            case "": {
+                return new CdFailure("You must pass a non-empty route");
+            }
             case ".":
                 return new SuccessfulCd(dirPath);
             case "..":

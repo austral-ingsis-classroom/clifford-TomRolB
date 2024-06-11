@@ -6,7 +6,6 @@ import java.util.List;
 //TODO: May rename
 public class CursorFileSystem implements FileSystem {
     private final Directory rootDirectory = new Directory("root");
-    private final Directory workingDirectory = rootDirectory;
     private List<Directory> dirPath = new ArrayList<>(List.of(rootDirectory));
     private final PathResolver pathResolver = new PathResolver(rootDirectory);
 
@@ -16,8 +15,11 @@ public class CursorFileSystem implements FileSystem {
     }
 
     @Override
-    public void changeToParentDirectory() {
-        dirPath.removeLast();
+    public String getCurrentPath() {
+        return dirPath
+                .stream()
+                .map(Object::toString)
+                .reduce("", (String acc, String current) -> acc + "/" + current);
     }
 
     @Override

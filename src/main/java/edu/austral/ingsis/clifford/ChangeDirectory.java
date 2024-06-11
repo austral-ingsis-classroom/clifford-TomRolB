@@ -4,7 +4,6 @@ package edu.austral.ingsis.clifford;
 public class ChangeDirectory implements Action {
     private final FileSystem fs;
     private final String route;
-    private final PathResolver resolver = new PathResolver(fs, route);
 
     public ChangeDirectory (String route, FileSystem fs) {
         this.route = route;
@@ -13,7 +12,6 @@ public class ChangeDirectory implements Action {
 
     @Override
     public String execute() {
-        Directory directoryInPath = resolver.getDirectory();
-        return "";
+        return fs.changeWorkingDirectory(route);
     }
 }

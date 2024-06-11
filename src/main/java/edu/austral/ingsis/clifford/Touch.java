@@ -11,6 +11,12 @@ public class Touch implements Action {
         this.content = content;
     }
 
+    public Touch(FileSystem fs, String name) {
+        this.fs = fs;
+        this.name = name;
+        this.content = "";
+    }
+
     @Override
     public String execute() {
         fs.getWorkingDirectory().addChild(name, new File(name, content));
