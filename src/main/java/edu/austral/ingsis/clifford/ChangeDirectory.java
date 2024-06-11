@@ -1,17 +1,16 @@
 package edu.austral.ingsis.clifford;
 
-//TODO: may refactor so that it takes a ChangeDirectoryStrategy, to make it extensible
 public class ChangeDirectory implements Action {
-    private final FileSystem fs;
-    private final String route;
+  private final FileSystem fs;
+  private final String route;
 
-    public ChangeDirectory (String route, FileSystem fs) {
-        this.route = route;
-        this.fs = fs;
-    }
+  public ChangeDirectory(String route, FileSystem fs) {
+    this.route = route;
+    this.fs = fs;
+  }
 
-    @Override
-    public String execute() {
-        return fs.changeWorkingDirectory(route);
-    }
+  @Override
+  public String execute() {
+    return fs.changeWorkingDirectory(route);
+  }
 }
