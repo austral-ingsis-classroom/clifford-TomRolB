@@ -31,7 +31,7 @@ class Directory implements FileObject {
     - children: Map<String, FileObject>
     + getName(): String
     + rename(name: String)
-    + addChild(name: String, children: FileObject)
+    + addChild(name: String, child: FileObject)
     + removeChild(name: String)
     + getChildren()
 }
