@@ -17,21 +17,25 @@ public class Cli {
     }
 
     public String executeCommand(String command) {
-        String[] arguments = command.split(" ");
+        String[] splitCommand = command.split(" ");
 
-        switch (arguments[0]) {
+        String commandName = splitCommand[0];
+        String commandArgument = splitCommand[1];
+        switch (commandName) {
             case "ls":
                 return new ListChildren(fs).execute();
             case "mkdir":
-                return new MakeDirectory(fs, arguments[1]).execute();
+                return new MakeDirectory(fs, commandArgument).execute();
             case "cd":
-                return new ChangeDirectory(arguments[1], fs).execute();
+                return new ChangeDirectory(commandArgument, fs).execute();
             case "touch":
-                return new Touch(fs, arguments[1]).execute();
+                return new Touch(fs, commandArgument).execute();
             case "pwd":
                 return new PrintWorkingDirectory(fs).execute();
             case "remove":
-                return new Remove().execute();
+                return new Remove(fs, commandArgument).execute();
+            default:
+                throw new IllegalStateException("Unexpected command: " + commandName);
         }
     }
 }
