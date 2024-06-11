@@ -1,11 +1,16 @@
 package edu.austral.ingsis.clifford;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Directory implements FileObject {
     private String name;
-    private Map<String, FileObject> children;
+    private final Map<String, FileObject> children = new HashMap<String, FileObject>();
+
+    public Directory(String name) {
+        this.name = name;
+    }
 
     @Override
     public void accept(Visitor visitor) {
@@ -32,5 +37,9 @@ public class Directory implements FileObject {
 
     public Collection<FileObject> getChildren() {
         return children.values();
+    }
+
+    public FileObject getChild(String name) {
+        return children.get(name);
     }
 }

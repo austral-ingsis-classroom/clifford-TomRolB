@@ -1,8 +1,19 @@
 package edu.austral.ingsis.clifford;
 
 public class Touch implements Action {
+    private final FileSystem fs;
+    private final String name;
+    private final String content;
+
+    public Touch(FileSystem fs, String name, String content) {
+        this.fs = fs;
+        this.name = name;
+        this.content = content;
+    }
+
     @Override
     public String execute() {
-        return "";
+        fs.getWorkingDirectory().addChild(name, new File(name, content));
+        return "'" + name + "' file created";
     }
 }

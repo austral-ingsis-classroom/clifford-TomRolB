@@ -4,6 +4,11 @@ public class File implements FileObject {
     private String name;
     private String content;
 
+    public File(String name, String content) {
+        this.name = name;
+        this.content = content;
+    }
+
     @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
