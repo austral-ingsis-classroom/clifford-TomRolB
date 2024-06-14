@@ -23,7 +23,7 @@ public class Remove implements Action {
       fs.getWorkingDirectory().removeChild(arguments[2]);
       return "'" + arguments[2] + "' removed";
     } else {
-      if (tryingToRemoveDirectory()) return "cannot remove '" + arguments[2] + "', is a directory";
+      if (tryingToRemoveDirectory()) return "cannot remove '" + arguments[1] + "', is a directory";
 
       fs.getWorkingDirectory().removeChild(arguments[1]);
       return "'" + arguments[1] + "' removed";

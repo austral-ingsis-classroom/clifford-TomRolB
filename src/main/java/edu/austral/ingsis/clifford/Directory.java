@@ -27,6 +27,8 @@ public class Directory implements FileObject {
   }
 
   public void addChild(String name, FileObject child) {
+    // Remove if present, so that insertion order is updated
+    children.remove(name);
     children.put(name, child);
   }
 
