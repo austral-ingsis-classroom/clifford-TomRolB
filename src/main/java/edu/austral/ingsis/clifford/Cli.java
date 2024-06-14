@@ -1,12 +1,15 @@
 package edu.austral.ingsis.clifford;
 
 import java.util.List;
+import java.util.Map;
 
 public class Cli {
   private final FileSystem fs;
+  private final Map<String, Action> commandMap;
 
-  public Cli(FileSystem fs) {
+  public Cli(FileSystem fs, Map<String, Action> commandMap) {
     this.fs = fs;
+    this.commandMap = commandMap;
   }
 
   public List<String> executeCommands(List<String> commands) {
@@ -18,14 +21,14 @@ public class Cli {
     String[] splitCommand = command.split(" ");
 
     String commandName = splitCommand[0];
-    ;
+
     switch (commandName) {
       case "ls":
         return new ListChildren(fs, getCommandArgument(splitCommand)).execute();
       case "mkdir":
         return new MakeDirectory(fs, getCommandArgument(splitCommand)).execute();
       case "cd":
-        return new ChangeDirectory(getCommandArgument(splitCommand), fs).execute();
+        return new ChangeDirectory(fs, getCommandArgument(splitCommand)).execute();
       case "touch":
         return new Touch(fs, getCommandArgument(splitCommand)).execute();
       case "pwd":

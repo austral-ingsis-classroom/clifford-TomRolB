@@ -4,7 +4,7 @@ public class ChangeDirectory implements Action {
   private final FileSystem fs;
   private final String route;
 
-  public ChangeDirectory(String route, FileSystem fs) {
+  public ChangeDirectory(FileSystem fs, String route) {
     this.route = route;
     this.fs = fs;
   }
