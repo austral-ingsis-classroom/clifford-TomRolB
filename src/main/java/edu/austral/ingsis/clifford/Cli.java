@@ -40,6 +40,8 @@ public class Cli {
       case "pwd":
         return new PrintWorkingDirectory(fs).execute();
       case "rm":
+        //TODO: Remove should receive arguments in the same way the rest
+        // of commands do. Fix it.
         return new Remove(fs, splitCommand).execute();
       default:
         throw new IllegalStateException("Unexpected command: " + commandName);

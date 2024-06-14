@@ -16,7 +16,7 @@ public class Remove implements Action {
     if (arguments.length == 1) return "Invalid command: no arguments were passed";
 
     if (arguments[1].equals("--recursive")) {
-      if (arguments.length != 2) {
+      if (arguments.length != 3) {
         return "Invalid number of arguments: must pass the directory to be deleted";
       }
 
