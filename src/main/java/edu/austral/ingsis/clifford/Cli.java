@@ -5,11 +5,17 @@ import java.util.Map;
 
 public class Cli {
   private final FileSystem fs;
-  private final Map<String, Action> commandMap;
+//  private final Map<String, Action> commandMap;
 
-  public Cli(FileSystem fs, Map<String, Action> commandMap) {
+// TODO: replace current constructor by the one below
+
+//  public Cli(FileSystem fs, Map<String, Action> commandMap) {
+//    this.fs = fs;
+//    this.commandMap = commandMap;
+//  }
+
+  public Cli(FileSystem fs) {
     this.fs = fs;
-    this.commandMap = commandMap;
   }
 
   public List<String> executeCommands(List<String> commands) {

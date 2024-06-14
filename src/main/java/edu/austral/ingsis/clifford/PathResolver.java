@@ -3,6 +3,9 @@ package edu.austral.ingsis.clifford;
 import java.util.ArrayList;
 import java.util.List;
 
+import static edu.austral.ingsis.clifford.Utils.getLastElement;
+import static edu.austral.ingsis.clifford.Utils.removeLastElement;
+
 public class PathResolver implements Visitor {
   private final Directory root;
   private CdResult result;
@@ -47,13 +50,13 @@ public class PathResolver implements Visitor {
         return new SuccessfulCd(dirPath);
       case "..":
         ArrayList<Directory> newDirPath = new ArrayList<>(dirPath);
-        if (newDirPath.size() > 1) newDirPath.removeLast();
+        if (newDirPath.size() > 1) removeLastElement(newDirPath);
         return new SuccessfulCd(newDirPath);
       default:
         setInitialVisitorVariables(path);
 
         if (pathStartsAtRoot(path)) visit(root);
-        else visit(dirPath.getLast());
+        else visit(getLastElement(dirPath));
 
         return result;
     }

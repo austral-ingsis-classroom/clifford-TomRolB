@@ -3,6 +3,8 @@ package edu.austral.ingsis.clifford;
 import java.util.ArrayList;
 import java.util.List;
 
+import static edu.austral.ingsis.clifford.Utils.getLastElement;
+
 // TODO: May rename
 public class CursorFileSystem implements FileSystem {
   private final Directory rootDirectory = new Directory("/");
@@ -11,7 +13,7 @@ public class CursorFileSystem implements FileSystem {
 
   @Override
   public Directory getWorkingDirectory() {
-    return dirPath.getLast();
+    return getLastElement(dirPath);
   }
 
   @Override
@@ -28,7 +30,7 @@ public class CursorFileSystem implements FileSystem {
 
     if (result instanceof SuccessfulCd) {
       dirPath = ((SuccessfulCd) result).dirPath();
-      return "moved to directory '" + dirPath.getLast().getName() + "'";
+      return "moved to directory '" + getLastElement(dirPath).getName() + "'";
     } else return ((CdFailure) result).reason();
   }
 }

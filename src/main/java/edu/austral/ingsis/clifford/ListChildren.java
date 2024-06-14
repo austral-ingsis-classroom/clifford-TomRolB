@@ -18,11 +18,6 @@ public class ListChildren implements Action {
     return sortIfNecessary(getFileObjectNames()).reduce("", concatWithPrevious()).stripTrailing();
   }
 
-  @Override
-  public String withParameters(FileSystem fs, String[] arguments) {
-    return new ListChildren(fs, order);
-  }
-
   private Stream<String> sortIfNecessary(Stream<String> fileObjectNames) {
     switch (order) {
       case "--ord=asc":

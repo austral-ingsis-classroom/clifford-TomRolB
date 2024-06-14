@@ -4,7 +4,8 @@ import java.util.*;
 
 public class Directory implements FileObject {
   private String name;
-  private final SequencedMap<String, FileObject> children = new LinkedHashMap<>();
+  // LinkedHashMap keeps insertion order
+  private final LinkedHashMap<String, FileObject> children = new LinkedHashMap<>();
 
   public Directory(String name) {
     this.name = name;
