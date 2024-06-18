@@ -7,15 +7,29 @@ import java.util.stream.Stream;
 public class ListChildren implements Action {
   private final FileSystem fs;
   private final String order;
+  private final boolean isInitialized;
 
-  public ListChildren(FileSystem fs, String order) {
+  public ListChildren(FileSystem fs, String[] arguments) {
     this.fs = fs;
-    this.order = order;
+    this.order = arguments.length > 0? arguments[0] : "";
+    this.isInitialized = true;
+  }
+
+  public ListChildren() {
+    this.fs = null;
+    this.order = null;
+    this.isInitialized = false;
   }
 
   @Override
   public String execute() {
+    if (!isInitialized) throw new IllegalStateException("This object's variables were not initialized yet");
     return sortIfNecessary(getFileObjectNames()).reduce("", concatWithPrevious()).stripTrailing();
+  }
+
+  @Override
+  public ListChildren withParameters(FileSystem fs, String[] arguments) {
+    return new ListChildren(fs, arguments);
   }
 
   private Stream<String> sortIfNecessary(Stream<String> fileObjectNames) {

@@ -1,7 +1,14 @@
 package edu.austral.ingsis;
 
+import edu.austral.ingsis.clifford.ChangeDirectory;
+import edu.austral.ingsis.clifford.ListChildren;
+import edu.austral.ingsis.clifford.MakeDirectory;
+import edu.austral.ingsis.clifford.PrintWorkingDirectory;
+import edu.austral.ingsis.clifford.Remove;
+import edu.austral.ingsis.clifford.Touch;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,13 +16,29 @@ import static java.util.Map.entry;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import edu.austral.ingsis.clifford.CursorFileSystem;
-import java.util.List;
-import java.util.Map;
-import org.junit.jupiter.api.Test;
 
 public class FileSystemTests {
 
-  private final FileSystemRunner runner = new CliRunner(new CursorFileSystem());
+  private final FileSystemRunner runner;
+
+  {
+    CursorFileSystem fs = new CursorFileSystem();
+    runner = new CliRunner(
+            fs,
+            new HashMap<>(Map.of(
+                    "ls", new ListChildren(),
+                    "rm", new Remove(),
+                    "cd", new ChangeDirectory(),
+                    "pwd", new PrintWorkingDirectory(),
+                    "touch", new Touch(),
+                    "mkdir", new MakeDirectory()
+            ))
+    );
+  }
+
+  private static String[] noArgs() {
+    return new String[]{"no", "args"};
+  }
 
   private void executeTest(List<Map.Entry<String, String>> commandsAndResults) {
     final List<String> commands = commandsAndResults.stream().map(Map.Entry::getKey).toList();

@@ -64,8 +64,13 @@ class Remove implements Action {
     + execute(): String
 }
 
-FileSystem -> Directory
-Action -> FileSystem
+class Cli {
+    + executeCommands(List<String> commands): List<String>
+}
+
+FileSystem --> Directory
+Action --> FileSystem
 Visitable -> Visitor
+Cli --> Action
 
 @enduml
