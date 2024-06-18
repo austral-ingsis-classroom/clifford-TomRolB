@@ -29,6 +29,8 @@ public class Touch implements Action {
 
   @Override
   public String execute() {
+    if (!isInitialized)
+      throw new IllegalStateException("This object's variables were not initialized yet");
     fs.getWorkingDirectory().addChild(name, new File(name, content));
     return "'" + name + "' file created";
   }

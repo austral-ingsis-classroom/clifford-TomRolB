@@ -46,22 +46,57 @@ class File implements FileObject {
 
 interface Action {
     + execute(): String
+    + withParameters(FileSystem fs, String[] arguments): Action
 }
 
 'Should execute() return a String?
 'Should the commands have the result stored to an attribute?
 'Should the commands have listeners?
 class MakeDirectory implements Action {
+    - fs: FileSystem
+    - dirName: String
+    - isInitialized: boolean
     + execute(): String
+    + withParameters(FileSystem fs, String[] arguments): Action
 }
 class Touch implements Action {
+    - fs: FileSystem
+    - name: String
+    - content: String
+    - isInitialized: boolean
     + execute(): String
+    + withParameters(FileSystem fs, String[] arguments): Action
 }
 class ListChildren implements Action {
+    - fs: FileSystem
+    - order: String
+    - isInitialized: boolean
     + execute(): String
+    + withParameters(FileSystem fs, String[] arguments): Action
+    - sortIfNecessary(Stream<String> fileObjectNames): Stream<String>
+    - getFileObjectNames(): Stream<String>
+    - concatWithPrevious(): BinaryOperator<String>
 }
 class Remove implements Action {
+    - fs: FileSystem
+    - arguments: String[]
+    - isInitialized: boolean
     + execute(): String
+    + withParameters(FileSystem fs, String[] arguments): Action
+    - tryingToRemoveDirectory(): boolean
+}
+class PrintCurrentDirectory implements Action {
+    - fs: FileSystem
+    - isInitialized: boolean
+    + execute(): String
+    + withParameters(FileSystem fs, String[] arguments): Action
+}
+class ChangeDirectory implements Action {
+    - FileSystem fs;
+    - String route;
+    - boolean isInitialized;
+    + execute(): String
+    + withParameters(FileSystem fs, String[] arguments): Action
 }
 
 class Cli {
