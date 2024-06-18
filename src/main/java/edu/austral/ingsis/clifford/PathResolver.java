@@ -32,10 +32,11 @@ public class PathResolver implements Visitor {
       result = new CdFailure("'" + splitPath[level] + "' directory does not exist");
     }
     // TODO: should not actually cast
-    else if (!(child instanceof Directory childDir)) {
+    else if (!(child instanceof Directory)) {
       result = new CdFailure("Invalid path: " + splitPath[level] + "is not a directory");
     } else {
-      pathBeingBuilt.add(childDir);
+        Directory childDir = (Directory) child;
+        pathBeingBuilt.add(childDir);
       level++;
       visit(childDir);
     }

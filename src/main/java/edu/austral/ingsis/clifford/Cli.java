@@ -2,6 +2,7 @@ package edu.austral.ingsis.clifford;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Cli {
   private final FileSystem fs;
@@ -13,7 +14,10 @@ public class Cli {
   }
 
   public List<String> executeCommands(List<String> commands) {
-    return commands.stream().map(this::executeCommand).toList();
+    return commands
+            .stream()
+            .map(this::executeCommand)
+            .collect(Collectors.toUnmodifiableList());
   }
 
   public String executeCommand(String command) {
