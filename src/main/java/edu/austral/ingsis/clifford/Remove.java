@@ -21,7 +21,8 @@ public class Remove implements Action {
   // TODO: modularize
   @Override
   public String execute() {
-    if (!isInitialized) throw new IllegalStateException("This object's variables were not initialized yet");
+    if (!isInitialized)
+      throw new IllegalStateException("This object's variables were not initialized yet");
     if (arguments.length == 0) return "Invalid command: no arguments were passed";
 
     if (arguments[0].equals("--recursive")) {

@@ -1,10 +1,10 @@
 package edu.austral.ingsis.clifford;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static edu.austral.ingsis.clifford.Utils.getLastElement;
 import static edu.austral.ingsis.clifford.Utils.removeLastElement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PathResolver implements Visitor {
   private final Directory root;
@@ -35,8 +35,8 @@ public class PathResolver implements Visitor {
     else if (!(child instanceof Directory)) {
       result = new CdFailure("Invalid path: " + splitPath[level] + "is not a directory");
     } else {
-        Directory childDir = (Directory) child;
-        pathBeingBuilt.add(childDir);
+      Directory childDir = (Directory) child;
+      pathBeingBuilt.add(childDir);
       level++;
       visit(childDir);
     }

@@ -11,7 +11,7 @@ public class ListChildren implements Action {
 
   public ListChildren(FileSystem fs, String[] arguments) {
     this.fs = fs;
-    this.order = arguments.length > 0? arguments[0] : "";
+    this.order = arguments.length > 0 ? arguments[0] : "";
     this.isInitialized = true;
   }
 
@@ -23,7 +23,8 @@ public class ListChildren implements Action {
 
   @Override
   public String execute() {
-    if (!isInitialized) throw new IllegalStateException("This object's variables were not initialized yet");
+    if (!isInitialized)
+      throw new IllegalStateException("This object's variables were not initialized yet");
     return sortIfNecessary(getFileObjectNames()).reduce("", concatWithPrevious()).stripTrailing();
   }
 

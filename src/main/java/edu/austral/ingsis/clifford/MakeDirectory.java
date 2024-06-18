@@ -19,7 +19,8 @@ public class MakeDirectory implements Action {
 
   @Override
   public String execute() {
-    if (!isInitialized) throw new IllegalStateException("This object's variables were not initialized yet");
+    if (!isInitialized)
+      throw new IllegalStateException("This object's variables were not initialized yet");
     fs.getWorkingDirectory().addChild(dirName, new Directory(dirName));
     return "'" + dirName + "' directory created";
   }

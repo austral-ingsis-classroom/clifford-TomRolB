@@ -1,9 +1,9 @@
 package edu.austral.ingsis.clifford;
 
+import static edu.austral.ingsis.clifford.Utils.getLastElement;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import static edu.austral.ingsis.clifford.Utils.getLastElement;
 
 // TODO: May rename
 public class CursorFileSystem implements FileSystem {

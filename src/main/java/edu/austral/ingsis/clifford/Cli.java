@@ -14,10 +14,7 @@ public class Cli {
   }
 
   public List<String> executeCommands(List<String> commands) {
-    return commands
-            .stream()
-            .map(this::executeCommand)
-            .collect(Collectors.toUnmodifiableList());
+    return commands.stream().map(this::executeCommand).collect(Collectors.toUnmodifiableList());
   }
 
   public String executeCommand(String command) {
@@ -26,13 +23,10 @@ public class Cli {
     String commandName = splitCommand[0];
     String[] arguments = getArgumentsOrEmptyArray(splitCommand);
 
-    return commandMap
-            .get(commandName)
-            .withParameters(fs, arguments)
-            .execute();
+    return commandMap.get(commandName).withParameters(fs, arguments).execute();
   }
 
-    private static String[] getArgumentsOrEmptyArray(String[] splitCommand) {
-        return splitCommand.length > 1 ? splitCommand[1].split(" ") : new String[]{};
-    }
+  private static String[] getArgumentsOrEmptyArray(String[] splitCommand) {
+    return splitCommand.length > 1 ? splitCommand[1].split(" ") : new String[] {};
+  }
 }

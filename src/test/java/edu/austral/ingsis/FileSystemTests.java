@@ -1,21 +1,19 @@
 package edu.austral.ingsis;
 
+import static java.util.Map.entry;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import edu.austral.ingsis.clifford.ChangeDirectory;
+import edu.austral.ingsis.clifford.CursorFileSystem;
 import edu.austral.ingsis.clifford.ListChildren;
 import edu.austral.ingsis.clifford.MakeDirectory;
 import edu.austral.ingsis.clifford.PrintWorkingDirectory;
 import edu.austral.ingsis.clifford.Remove;
 import edu.austral.ingsis.clifford.Touch;
-import org.junit.jupiter.api.Test;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static java.util.Map.entry;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import edu.austral.ingsis.clifford.CursorFileSystem;
+import org.junit.jupiter.api.Test;
 
 public class FileSystemTests {
 
@@ -23,21 +21,21 @@ public class FileSystemTests {
 
   {
     CursorFileSystem fs = new CursorFileSystem();
-    runner = new CliRunner(
+    runner =
+        new CliRunner(
             fs,
-            new HashMap<>(Map.of(
+            new HashMap<>(
+                Map.of(
                     "ls", new ListChildren(),
                     "rm", new Remove(),
                     "cd", new ChangeDirectory(),
                     "pwd", new PrintWorkingDirectory(),
                     "touch", new Touch(),
-                    "mkdir", new MakeDirectory()
-            ))
-    );
+                    "mkdir", new MakeDirectory())));
   }
 
   private static String[] noArgs() {
-    return new String[]{"no", "args"};
+    return new String[] {"no", "args"};
   }
 
   private void executeTest(List<Map.Entry<String, String>> commandsAndResults) {
@@ -74,8 +72,7 @@ public class FileSystemTests {
             entry("pwd", "/emily"),
             entry("touch elizabeth.txt", "'elizabeth.txt' file created"),
             entry("mkdir t-bone", "'t-bone' directory created"),
-            entry("ls", "elizabeth.txt t-bone")
-    ));
+            entry("ls", "elizabeth.txt t-bone")));
   }
 
   @Test

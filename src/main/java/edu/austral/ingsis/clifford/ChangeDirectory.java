@@ -19,7 +19,8 @@ public class ChangeDirectory implements Action {
 
   @Override
   public String execute() {
-    if (!isInitialized) throw new IllegalStateException("This object's variables were not initialized yet");
+    if (!isInitialized)
+      throw new IllegalStateException("This object's variables were not initialized yet");
     return fs.changeWorkingDirectory(route);
   }
 
